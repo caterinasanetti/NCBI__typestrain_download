@@ -1,0 +1,7 @@
+.venv/
+env/
+*.log
+Bacteroides_fragilis_typestrain/
+*.txt
+*.zip
+*.fasta
