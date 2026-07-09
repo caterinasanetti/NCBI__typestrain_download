@@ -5,3 +5,6 @@ Bacteroides_fragilis_typestrain/
 *.txt
 *.zip
 *.fasta
+*.def
+*.sif 
+__pycache__/
