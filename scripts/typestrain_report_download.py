@@ -56,15 +56,13 @@ def load_report() -> pd.DataFrame:
     return df
 
 
-def get_type_strain_keys(df: pd.DataFrame, species: str) -> list[str] | None:
+def get_type_strain_keys(df: pd.DataFrame, species: str) -> tuple[list[str] | None, str]:
     """Look up `species` in the report and return its type-strain
-    keys, or None (logging the reason) if the species can't be
-    used: not found, no designation on file, or type strain not
-    sequenced."""
+    keys, plus a status string describing the lookup result."""
     rows = df[df["name_norm"] == species.lower()]
     if rows.empty:
         log.error("%s: not found in type-strain report.", species)
-        return None
+        return None, "not_found"
     row = rows.iloc[0]
 
     raw = row["type-materials-and-coidentical-strains"].strip()
@@ -72,15 +70,15 @@ def get_type_strain_keys(df: pd.DataFrame, species: str) -> list[str] | None:
 
     if not raw or raw.upper() == "NULL":
         log.error("%s: no type strain designation.", species)
-        return None
+        return None, "no_designation"
     if n_type == 0:
         log.error("%s: type strain not sequenced. Total assemblies: %s",
                    species, row["number-of-assemblies-per-taxon"])
-        return None
+        return None, "not_sequenced"
 
     keys = [p.strip() for p in re.sub(r"\[\[.*?\]\]", "", raw).split(",") if p.strip()]
     if not keys:
         log.error("%s: could not parse type strain field. Raw: %s", species, raw)
-        return None
+        return None, "parse_error"
 
-    return keys
+    return keys, "ok"

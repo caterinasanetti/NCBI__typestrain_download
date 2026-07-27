@@ -8,3 +8,4 @@ Bacteroides_fragilis_typestrain/
 *.def
 *.sif 
 __pycache__/
+*_typestrain/
