@@ -3,10 +3,10 @@ import csv
 import logging
 import sys
 from pathlib import Path
-from scripts.typestrain_finder import find_best_assembly
-from scripts.typestrain_download import download_assembly
-from scripts.typestrain_report_download import get_type_strain_keys, load_report , log_path, output_dir
-from scripts.gtdb_to_ncbi import load_metadata
+from typestrain_finder import find_best_assembly
+from typestrain_download import download_assembly
+from typestrain_report_download import get_type_strain_keys, load_report , log_path, output_dir
+from gtdb_to_ncbi import load_metadata
 
 
 def setup_logging(path) -> None:

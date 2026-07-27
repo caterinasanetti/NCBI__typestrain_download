@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 import pandas as pd
-from scripts.typestrain_report_download import norm
+from typestrain_report_download import norm
 
 log = logging.getLogger(__name__)
 BIOSAMPLE_FIELDS = {"strain", "isolate", "culture_collection"}
